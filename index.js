@@ -1,13 +1,22 @@
-const http = require("http");
-const hostname = '0.0.0.0';
-const port = 3000;
+const express = require("express");
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/plain");
-    res.end("amongus");
+const app = express();
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+res.send("API funcionando!");
 });
 
-server.listen(port, hostname, () => {
-    console.log(`Servidor rodando em http://localhost:${port}/`);
+const produtos = [
+{ id: 1, nome: "Notbook", preco: 3500 },
+{ id: 2, nome: "Mouse", preco:120 }
+];
+
+app.get("/produtos", (req, res) => {
+res.status(200).json(produtos);
+});
+
+app.listen(3000, () => {
+console.log("API rodando na porta 3000");
 });
